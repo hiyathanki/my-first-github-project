@@ -1,17 +1,298 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Productivity Dashboard</title>
+    <meta name="theme-color" content="#faf7ff">
+    <meta name="description" content="A cute and cozy student productivity dashboard to organize tasks, track progress, and focus on studying.">
+
+    <title>Study Bloom | Student Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
+    <div class="app-shell">
 
-    <h1>Student Productivity Dashboard</h1>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a class="brand" href="#" aria-label="Study Bloom home">
+                <span class="brand-icon">✿</span>
+                <span>study bloom<span class="brand-dot">.</span></span>
+            </a>
 
-    <p>Plan better. Study smarter. Make progress every day.</p>
+            <p class="nav-label">YOUR SPACE</p>
 
+            <nav class="navigation" aria-label="Main navigation">
+                <a class="nav-link active" href="#dashboard">
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </a>
+
+                <a class="nav-link" href="#tasks-section">
+                    <span class="nav-icon">☑</span>
+                    My Tasks
+                </a>
+
+                <a class="nav-link" href="#subjects-section">
+                    <span class="nav-icon">♡</span>
+                    My Subjects
+                </a>
+
+                <a class="nav-link" href="#timer-section">
+                    <span class="nav-icon">◷</span>
+                    Study Timer
+                </a>
+            </nav>
+
+            <div class="sidebar-note">
+                <span class="note-flower">🌷</span>
+                <h3>A little reminder</h3>
+                <p>You don't have to do everything today. Just take the next small step.</p>
+            </div>
+
+            <p class="sidebar-footer">made for your growth ♡</p>
+        </aside>
+
+        <!-- Main content -->
+        <main class="main-content" id="dashboard">
+
+            <!-- Header -->
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">YOUR LITTLE PRODUCTIVITY CORNER ✨</p>
+                    <h1>Let's make today <span>count.</span></h1>
+                    <p class="subtitle">A little progress is still progress.</p>
+                </div>
+
+                <div class="date-chip">
+                    <span>🌸</span>
+                    <span id="current-date">Your study day</span>
+                </div>
+            </header>
+
+            <!-- Welcome banner -->
+            <section class="welcome-banner">
+                <div class="welcome-content">
+                    <span class="welcome-label">A FRESH START</span>
+                    <h2>You've got this! 💜</h2>
+                    <p>Plan your day, focus on what matters, and celebrate every little win.</p>
+                    <a href="#tasks-section" class="welcome-button">Plan my day <span>→</span></a>
+                </div>
+
+                <div class="welcome-art" aria-hidden="true">
+                    <span class="art-sparkle sparkle-one">✦</span>
+                    <span class="art-sparkle sparkle-two">✧</span>
+                    <div class="art-flower">✿</div>
+                    <div class="art-orbit"></div>
+                    <span class="art-heart">♡</span>
+                </div>
+            </section>
+
+            <!-- Overview -->
+            <section class="overview-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">YOUR DAY AT A GLANCE</p>
+                        <h2>Today's overview</h2>
+                    </div>
+                    <span class="tiny-badge">one step at a time 🌱</span>
+                </div>
+
+                <div class="overview-grid">
+
+                    <article class="stat-card stat-lilac">
+                        <div class="stat-top">
+                            <span class="stat-label">Tasks completed</span>
+                            <span class="stat-icon">☑</span>
+                        </div>
+                        <p class="stat-value" id="task-progress">0 / 0</p>
+                        <p class="stat-caption">little wins add up!</p>
+                    </article>
+
+                    <article class="stat-card stat-pink">
+                        <div class="stat-top">
+                            <span class="stat-label">Study time</span>
+                            <span class="stat-icon">◷</span>
+                        </div>
+                        <p class="stat-value" id="study-time">0 min</p>
+                        <p class="stat-caption">time spent focusing</p>
+                    </article>
+
+                    <article class="stat-card stat-peach">
+                        <div class="stat-top">
+                            <span class="stat-label">Overall progress</span>
+                            <span class="stat-icon">↗</span>
+                        </div>
+                        <p class="stat-value" id="overall-progress">0%</p>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Tasks -->
+            <section class="content-card" id="tasks-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">ONE THING AT A TIME</p>
+                        <h2>My tasks <span class="heading-flower">✿</span></h2>
+                    </div>
+                    <span class="count-pill" id="task-total">0 tasks</span>
+                </div>
+
+                <form class="task-form" id="task-form">
+                    <label class="visually-hidden" for="task-input">New task</label>
+                    <input
+                        type="text"
+                        id="task-input"
+                        placeholder="What would you like to get done?"
+                        maxlength="200"
+                        autocomplete="off"
+                        required
+                    >
+                    <button type="submit" class="primary-button">
+                        <span>＋</span> Add task
+                    </button>
+                </form>
+
+                <div class="task-toolbar">
+                    <span>Your to-do list</span>
+                    <span class="toolbar-hint">click a task to complete it ♡</span>
+                </div>
+
+                <ul id="task-list" class="task-list" aria-label="Your tasks"></ul>
+
+                <div id="empty-message" class="empty-state">
+                    <span class="empty-illustration">🪴</span>
+                    <h3>Your list is waiting to bloom!</h3>
+                    <p>Add your first task and make a little progress today.</p>
+                </div>
+            </section>
+
+            <!-- Subjects -->
+            <section class="content-card" id="subjects-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">LEARN AT YOUR OWN PACE</p>
+                        <h2>My subjects <span class="heading-flower">♡</span></h2>
+                    </div>
+                </div>
+
+                <div class="subjects-grid">
+
+                    <article class="subject-card subject-purple">
+                        <div class="subject-top">
+                            <span class="subject-emoji">💻</span>
+                            <span class="subject-tag">CODING</span>
+                        </div>
+                        <h3>C++ Programming</h3>
+                        <p>Build your logic, one problem at a time.</p>
+                        <div class="subject-progress">
+                            <div class="subject-track">
+                                <div class="subject-fill" style="width: 0%"></div>
+                            </div>
+                            <span>0%</span>
+                        </div>
+                    </article>
+
+                    <article class="subject-card subject-pink">
+                        <div class="subject-top">
+                            <span class="subject-emoji">📐</span>
+                            <span class="subject-tag">PRACTICE</span>
+                        </div>
+                        <h3>Mathematics</h3>
+                        <p>Every problem teaches you something.</p>
+                        <div class="subject-progress">
+                            <div class="subject-track">
+                                <div class="subject-fill" style="width: 0%"></div>
+                            </div>
+                            <span>0%</span>
+                        </div>
+                    </article>
+
+                    <article class="subject-card subject-peach">
+                        <div class="subject-top">
+                            <span class="subject-emoji">🔬</span>
+                            <span class="subject-tag">DISCOVER</span>
+                        </div>
+                        <h3>Physics</h3>
+                        <p>Stay curious about how things work.</p>
+                        <div class="subject-progress">
+                            <div class="subject-track">
+                                <div class="subject-fill" style="width: 0%"></div>
+                            </div>
+                            <span>0%</span>
+                        </div>
+                    </article>
+
+                    <article class="subject-card subject-blue">
+                        <div class="subject-top">
+                            <span class="subject-emoji">⚡</span>
+                            <span class="subject-tag">EXPLORE</span>
+                        </div>
+                        <h3>Electronics</h3>
+                        <p>Turn small ideas into big discoveries.</p>
+                        <div class="subject-progress">
+                            <div class="subject-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="subject-progress subject-progress-label">
+                            <span>0%</span>
+                        </div>
+                    </article>
+
+                </div>
+                <p class="section-footnote">Subject progress is a visual placeholder for now. ♡</p>
+            </section>
+
+            <!-- Study Timer -->
+            <section class="content-card timer-card" id="timer-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">A LITTLE TIME FOR YOURSELF</p>
+                        <h2>Focus room <span class="heading-flower">☁</span></h2>
+                    </div>
+                    <span class="count-pill">POMODORO</span>
+                </div>
+
+                <div class="timer-layout">
+                    <div class="timer-visual">
+                        <div class="timer-ring" id="timer-ring">
+                            <div class="timer-inner">
+                                <span class="timer-flower">✿</span>
+                                <p id="timer-display" role="timer" aria-live="off">25:00</p>
+                                <span class="timer-caption" id="timer-status">ready when you are</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timer-controls">
+                        <span class="focus-pill">🌿 TIME TO FOCUS</span>
+                        <h3>Make space for deep work.</h3>
+                        <p>Put distractions aside, take a breath, and give yourself 25 minutes to focus on one thing.</p>
+
+                        <div class="timer-buttons">
+                            <button type="button" id="start-timer" class="primary-button">▶ Start focus</button>
+                            <button type="button" id="pause-timer" class="secondary-button">Ⅱ Pause</button>
+                            <button type="button" id="reset-timer" class="secondary-button">↻ Reset</button>
+                        </div>
+
+                        <p class="timer-note">25 minutes of focus · a little progress goes a long way ♡</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="app-footer">
+                <p>made with ♡ and a little bit of ambition</p>
+                <p>keep growing, keep glowing ✨</p>
+            </footer>
+
+        </main>
+    </div>
 </body>
 </html>
